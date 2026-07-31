@@ -162,10 +162,17 @@ input:focus, select:focus { border-color: #ffb997; }
   font-size: 11px;
   line-height: 18px;
   cursor: pointer;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.15s;
 }
-.ing-card:hover .del-btn { opacity: 1; }
+/* 只有支持真正"鼠标悬停"的设备（电脑）才默认隐藏删除按钮、悬停时才淡入。
+   触屏手机没有"悬停"这回事——如果让删除按钮靠 :hover 显示，
+   手机上第一下触摸只会被当成"悬停"（把叉显示出来），不会触发真正的点击，
+   要点第二下才算数，这就是之前"点了没反应"的原因。触屏设备上直接常显，一点就能生效。 */
+@media (hover: hover) and (pointer: fine) {
+  .ing-card .del-btn { opacity: 0; }
+  .ing-card:hover .del-btn { opacity: 1; }
+}
 
 .slots-grid {
   display: grid;
